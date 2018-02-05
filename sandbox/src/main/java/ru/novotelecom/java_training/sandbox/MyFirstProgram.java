@@ -16,7 +16,6 @@ public class MyFirstProgram {
         Point p1 = new Point(1,1);
         Point p2 = new Point(2,2);
         System.out.println("Расстояние между точками (" +p1.x + "," + p1.y + ")"  +" и " +  "(" +p2.x + "," + p2.y + ")"+ " = " + distance(p1,p2));
-        // есть подозрения, что написанное тут - жуть жутчайшая, но как по-другому я без понятия, и вроде оно работает
         System.out.println("Расстояние между точками (" +p1.x + "," + p1.y + ")"  +" и " +  "(" +p2.x + "," + p2.y + ")"+ " = " + p1.distance(p2));
 
 
