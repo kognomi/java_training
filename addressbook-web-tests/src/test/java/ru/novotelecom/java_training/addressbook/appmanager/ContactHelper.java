@@ -28,4 +28,8 @@ public class ContactHelper  extends HelperBase{
         type(By.name("email3"),contactData.getThirdEmail());
         type(By.name("phone2"),contactData.getSecondHomePhone());
     }
+
+    public void returnToHomePage() {
+        click(By.linkText("home page"));
+    }
 }
