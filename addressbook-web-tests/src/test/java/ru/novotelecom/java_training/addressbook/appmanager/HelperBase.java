@@ -23,10 +23,19 @@ public class HelperBase {
 
     public  boolean isAlertPresent() {
         try {
-            wd.switchTo().alert().accept();
+            wd.switchTo().alert();
             return true;
         } catch (NoAlertPresentException e) {
             return false;
         }
     }
+    public void confirmAllert() {
+        if (isAlertPresent()==true)
+            wd.switchTo().alert().accept();
+    }
+    public void rejectAllert() {
+        if (isAlertPresent()==true)
+            wd.switchTo().alert().dismiss();
+    }
+
 }
