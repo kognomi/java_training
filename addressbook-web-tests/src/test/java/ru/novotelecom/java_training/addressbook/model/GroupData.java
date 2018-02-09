@@ -1,4 +1,4 @@
-package ru.novotelecom.java_training.addressbook;
+package ru.novotelecom.java_training.addressbook.model;
 
 public class GroupData {
     private final String name;
