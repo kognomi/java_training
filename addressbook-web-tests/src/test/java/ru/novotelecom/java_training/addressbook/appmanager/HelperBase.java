@@ -2,6 +2,7 @@ package ru.novotelecom.java_training.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -36,12 +37,22 @@ public class HelperBase {
         }
     }
     public void confirmAllert() {
-            isAlertPresent();
-            wd.switchTo().alert().accept();
+             if (isAlertPresent()) {
+                 wd.switchTo().alert().accept();
+             }
     }
     public void rejectAllert() {
-        isAlertPresent();
-        wd.switchTo().alert().dismiss();
+         if (isAlertPresent()) {
+             wd.switchTo().alert().dismiss();
+         }
     }
 
+    protected boolean isElementPresent(By locator) {
+        try {
+            wd.findElement(locator);
+            return true;
+        } catch (NoSuchElementException ex) {
+            return false;
+        }
+    }
 }
