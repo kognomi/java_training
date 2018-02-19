@@ -30,12 +30,12 @@ public class HelperBase {
         }
     }
     public void confirmAllert() {
-        if (isAlertPresent()==true)
+            isAlertPresent();
             wd.switchTo().alert().accept();
     }
     public void rejectAllert() {
-        if (isAlertPresent()==true)
-            wd.switchTo().alert().dismiss();
+        isAlertPresent();
+        wd.switchTo().alert().dismiss();
     }
 
 }
