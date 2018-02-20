@@ -60,12 +60,14 @@ public class ContactHelper  extends HelperBase{
         click(By.xpath("//div[@id='content']/form[1]/input[22]"));
     }
 
-    public void submitContactDeletionFromContactEditPage() {
-        click(By.xpath("//div[@id='content']/form[1]/input[22]"));
+    public void submitContactDeletionFromContactEditPage()  {
+       // click(By.xpath("//div[@id='content']/form[1]/input[22]")); //xpath кнопки сгенеренный в selenium builder криво кликается в chrome (тест при этом не валится)
+        click(By.xpath("//*[@id=\"content\"]/form[2]/input[2]"));
     }
 
-    public void submitContactDeletionFromHomePage() {
-        click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+    public void submitContactDeletionFromHomePage()  {
+        //click(By.xpath("//div[@id='content']/form[2]/div[2]/input")); //xpath кнопки сгенеренный в selenium builder криво кликается в chrome (тест при этом не валится)
+        click(By.xpath("//*[@id=\"content\"]/form[2]/div[2]/input"));
         confirmAllert();
     }
 
