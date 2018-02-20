@@ -8,12 +8,15 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.novotelecom.java_training.addressbook.model.ContactData;
 
+
+
 public class ContactHelper  extends HelperBase{
 
 
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
+
 
     public void submitContactCreation() {
         click(By.xpath("//div[@id='content']/form/input[21]"));
@@ -66,4 +69,13 @@ public class ContactHelper  extends HelperBase{
         confirmAllert();
     }
 
+    public void createContact(ContactData contact) {
+        fillContactForm(contact,true);
+        submitContactCreation();
+        returnToHomePage();
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    }
 }
