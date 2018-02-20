@@ -25,6 +25,7 @@ public class ContactDeletionTests extends TestBase{
         }
         app.getContactHelper().selectContact();
         app.getContactHelper().submitContactDeletionFromHomePage();
+        app.getNavigationHelper().goToHomePage(); //когда комп не тормозит, то без этой строчки возможно из бд не успевает удалиться запись, писала об этом в общем чате
     }
 
 }
