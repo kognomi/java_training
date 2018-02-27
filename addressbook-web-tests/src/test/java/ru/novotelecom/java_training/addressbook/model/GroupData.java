@@ -1,7 +1,5 @@
 package ru.novotelecom.java_training.addressbook.model;
 
-import java.util.Objects;
-
 public class GroupData {
     private int id;
     private final String name;

@@ -3,7 +3,6 @@ package ru.novotelecom.java_training.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.novotelecom.java_training.addressbook.model.ContactData;
-import ru.novotelecom.java_training.addressbook.model.GroupData;
 
 import java.util.Comparator;
 import java.util.List;
