@@ -1,12 +1,21 @@
 package ru.novotelecom.java_training.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.novotelecom.java_training.addressbook.model.GroupData;
 
 import java.util.List;
 
 public class GroupDeletionTests extends TestBase {
+
+    @BeforeMethod
+    public void ensurePreconditions() {
+        app.getNavigationHelper().goToGroupPage();
+        if (! app.getGroupHelper().isThereAGroup()) {
+            app.getGroupHelper().createGroup(new GroupData("test1",null,null));
+        }
+    }
 
     @Test
     public void testGroupDeletion() {
