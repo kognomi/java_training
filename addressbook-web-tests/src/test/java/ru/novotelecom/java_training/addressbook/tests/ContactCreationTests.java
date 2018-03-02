@@ -23,7 +23,7 @@ public class ContactCreationTests extends TestBase {
         Assert.assertEquals(before,after);
     }
 
-    @Test
+    @Test(enabled = false)
     public void testContactCreationList() {
         app.goTo().homePage();
         List<ContactData> before = app.contact().list();

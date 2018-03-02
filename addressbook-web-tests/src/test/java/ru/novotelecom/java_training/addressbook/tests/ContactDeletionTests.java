@@ -43,7 +43,7 @@ public class ContactDeletionTests extends TestBase{
         Assert.assertEquals(before, after);
     }
 
-    @Test
+    @Test(enabled = false)
     public void testContactDeletionFromContactEditPageList() {
         List<ContactData> before = app.contact().list();
         int index= before.size()-1;
@@ -54,7 +54,7 @@ public class ContactDeletionTests extends TestBase{
         Assert.assertEquals(before, after);
     }
 
-    @Test
+    @Test(enabled = false)
     public void testContactDeletionFromHomePageList () {
         List<ContactData> before = app.contact().list();
         int index= before.size()-1;
