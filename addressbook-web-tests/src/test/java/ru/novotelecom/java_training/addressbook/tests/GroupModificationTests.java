@@ -1,12 +1,9 @@
 package ru.novotelecom.java_training.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.novotelecom.java_training.addressbook.model.GroupData;
 import ru.novotelecom.java_training.addressbook.model.Groups;
-
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;

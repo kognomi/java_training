@@ -6,11 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.novotelecom.java_training.addressbook.model.ContactData;
+import ru.novotelecom.java_training.addressbook.model.Contacts;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 public class ContactHelper  extends HelperBase{
@@ -51,17 +49,8 @@ public class ContactHelper  extends HelperBase{
         click(By.linkText("home page"));
     }
 
-    public void selectContact(int index) {
-        wd.findElements(By.cssSelector("tr[name='entry']")).get(index).findElement(By.xpath(".//td[1]/input")).click();
-    }
-
     public void selectContactById(int id) {
         wd.findElement(By.id(""+id+"")).click();
-    }
-
-    public void initContactModification(int index) {
-        wd.findElements(By.cssSelector("tr[name='entry']")).get(index).findElement(By.xpath(".//td[8]/a/img")).click();
-
     }
 
     public void initContactModificationById(int id) {
@@ -88,32 +77,15 @@ public class ContactHelper  extends HelperBase{
         returnToHomePage();
     }
 
-    public void deleteFromModificationPage(int index) {
-        initContactModification(index);
-        submitContactDeletionFromContactEditPage();
-
-    }
-
     public void deleteFromModificationPage(ContactData contact) {
         initContactModificationById(contact.getId());
         submitContactDeletionFromContactEditPage();
 
     }
 
-    public void deleteFromHomePage(int index) {
-        selectContact(index);
-        submitContactDeletionFromHomePage();
-    }
     public void deleteFromHomePage(ContactData contact) {
         selectContactById(contact.getId());
         submitContactDeletionFromHomePage();
-    }
-
-    public void modify(int index, ContactData contact) {
-        initContactModification(index);
-        fillContactForm(contact,false);
-        submitContactModification();
-        returnToHomePage();
     }
 
     public void modify(ContactData contact) {
@@ -127,20 +99,8 @@ public class ContactHelper  extends HelperBase{
         return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
 
-    public List<ContactData> list() {
-        List <ContactData> contacts = new ArrayList<ContactData>();
-        List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
-        for (WebElement element : elements) {
-            String firstname = element.findElement(By.xpath(".//td[3]")).getText();
-            String lastname =  element.findElement(By.xpath(".//td[2]")).getText();
-            int id = Integer.parseInt(element.findElement(By.tagName("td")).findElement(By.tagName("input")).getAttribute("value"));
-            contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
-        }
-        return contacts;
-    }
-
-    public Set<ContactData> all() {
-        Set<ContactData> contacts = new HashSet<ContactData>();
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
         for (WebElement element : elements) {
             int id = Integer.parseInt(element.findElement(By.tagName("td")).findElement(By.tagName("input")).getAttribute("value"));
