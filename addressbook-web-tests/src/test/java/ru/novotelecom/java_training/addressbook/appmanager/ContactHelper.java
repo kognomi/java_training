@@ -6,9 +6,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.novotelecom.java_training.addressbook.model.ContactData;
+import ru.novotelecom.java_training.addressbook.model.GroupData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class ContactHelper  extends HelperBase{
@@ -51,12 +54,19 @@ public class ContactHelper  extends HelperBase{
 
     public void selectContact(int index) {
         wd.findElements(By.cssSelector("tr[name='entry']")).get(index).findElement(By.xpath(".//td[1]/input")).click();
+    }
 
-
+    public void selectContactById(int id) {
+        wd.findElement(By.id(""+id+"")).click();
     }
 
     public void initContactModification(int index) {
         wd.findElements(By.cssSelector("tr[name='entry']")).get(index).findElement(By.xpath(".//td[8]/a/img")).click();
+
+    }
+
+    public void initContactModificationById(int id) {
+        wd.findElement(By.cssSelector("a[href='edit.php?id="+id+"']")).click();
 
     }
 
@@ -85,13 +95,30 @@ public class ContactHelper  extends HelperBase{
 
     }
 
+    public void deleteFromModificationPage(ContactData contact) {
+        initContactModificationById(contact.getId());
+        submitContactDeletionFromContactEditPage();
+
+    }
+
     public void deleteFromHomePage(int index) {
         selectContact(index);
+        submitContactDeletionFromHomePage();
+    }
+    public void deleteFromHomePage(ContactData contact) {
+        selectContactById(contact.getId());
         submitContactDeletionFromHomePage();
     }
 
     public void modify(int index, ContactData contact) {
         initContactModification(index);
+        fillContactForm(contact,false);
+        submitContactModification();
+        returnToHomePage();
+    }
+
+    public void modify(ContactData contact) {
+        initContactModificationById(contact.getId());
         fillContactForm(contact,false);
         submitContactModification();
         returnToHomePage();
@@ -109,6 +136,19 @@ public class ContactHelper  extends HelperBase{
             String lastname =  element.findElement(By.xpath(".//td[2]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("td")).findElement(By.tagName("input")).getAttribute("value"));
             contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
+        }
+        return contacts;
+    }
+
+    public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<ContactData>();
+        List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
+        for (WebElement element : elements) {
+            int id = Integer.parseInt(element.findElement(By.tagName("td")).findElement(By.tagName("input")).getAttribute("value"));
+            String firstname = element.findElement(By.xpath(".//td[3]")).getText();
+            String lastname =  element.findElement(By.xpath(".//td[2]")).getText();
+            ContactData contact = new ContactData().withId(id).withFirstname(firstname).withLastname(lastname);
+            contacts.add(contact);
         }
         return contacts;
     }

@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.novotelecom.java_training.addressbook.model.ContactData;
 
 import java.util.List;
+import java.util.Set;
 
 public class ContactDeletionTests extends TestBase{
 
@@ -13,21 +14,21 @@ public class ContactDeletionTests extends TestBase{
     public void ensurePreconditions() {
         app.goTo().homePage();
 
-        if (app.contact().list().size()==0) {
+        if (app.contact().all().size()==0) {
             app.goTo().contactCreationPage();
             app.contact().create(new ContactData().withFirstname("1Firstname").withMidname("1Midname").withLastname("1Lastname").withAddres("1Addr").withFirstHomePhone("11111").withMobilePhone("12222").withWorkPhone("13333").withFirstEmail("1email1@aaa.aa").withSecondEmail("1email2@bbb.bb").withThirdEmail("1email3@ccc.cc").withSecondHomePhone("15555").withGroup("test1"));
 
         }
     }
 
-    @Test
+    @Test(enabled=false)
     public void testContactDeletionFromContactEditPage() {
-        List<ContactData> before = app.contact().list();
-        int index= before.size()-1;
-        app.contact().deleteFromModificationPage(index);
+        Set<ContactData> before = app.contact().all();
+        ContactData deletedContact = before.iterator().next();
+        app.contact().deleteFromModificationPage(deletedContact);
         app.goTo().homePage();
-        List<ContactData> after = app.contact().list();
-        before.remove(index);
+        Set<ContactData> after = app.contact().all();
+        before.remove(deletedContact);
         Assert.assertEquals(before, after);
     }
 
@@ -35,12 +36,12 @@ public class ContactDeletionTests extends TestBase{
 
     @Test
     public void testContactDeletionFromHomePage () {
-        List<ContactData> before = app.contact().list();
-        int index= before.size()-1;
-        app.contact().deleteFromHomePage(index);
+        Set<ContactData> before = app.contact().all();
+        ContactData deletedContact = before.iterator().next();
+        app.contact().deleteFromHomePage(deletedContact);
         app.goTo().homePage();
-        List<ContactData> after = app.contact().list();
-        before.remove(index);
+        Set<ContactData> after = app.contact().all();
+        before.remove(deletedContact);
         Assert.assertEquals(before, after);
     }
 
