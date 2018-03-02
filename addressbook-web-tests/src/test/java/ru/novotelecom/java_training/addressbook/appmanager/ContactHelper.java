@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.novotelecom.java_training.addressbook.model.ContactData;
-import ru.novotelecom.java_training.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.HashSet;
