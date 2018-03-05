@@ -129,12 +129,15 @@ public class ContactHelper  extends HelperBase{
         }
 
         contactCache = new Contacts();
-        List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
-        for (WebElement element : elements) {
-            int id = Integer.parseInt(element.findElement(By.tagName("td")).findElement(By.tagName("input")).getAttribute("value"));
-            String firstname = element.findElement(By.xpath(".//td[3]")).getText();
-            String lastname =  element.findElement(By.xpath(".//td[2]")).getText();
-            ContactData contact = new ContactData().withId(id).withFirstname(firstname).withLastname(lastname);
+        List<WebElement> rows = wd.findElements(By.cssSelector("tr[name='entry']"));
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+            String lastname = cells.get(1).getText();
+            String firstname = cells.get(2).getText();
+            String[] phones = cells.get(5).getText().split("\n");
+            ContactData contact = new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
+                    .withFirstHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]).withSecondHomePhone(phones[3]);
             contactCache.add(contact);
         }
         return new Contacts(contactCache);
@@ -147,7 +150,7 @@ public class ContactHelper  extends HelperBase{
         String homeFirst = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
-        String homeSecond = wd.findElement(By.name("home2")).getAttribute("value");
+        String homeSecond = wd.findElement(By.name("phone2")).getAttribute("value");
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
                 .withFirstHomePhone(homeFirst).withMobilePhone(mobile).withWorkPhone(work).withSecondHomePhone(homeSecond);
