@@ -27,7 +27,7 @@ public class ContactHelper  extends HelperBase{
         type(By.name("firstname"),contactData.getFirstname());
         type(By.name("middlename"),contactData.getMidname());
         type(By.name("lastname"),contactData.getLastname());
-        type(By.name("address"),contactData.getAddres());
+        type(By.name("address"),contactData.getAddress());
         type(By.name("home"),contactData.getFirstHomePhone());
         type(By.name("mobile"),contactData.getMobilePhone());
         type(By.name("work"),contactData.getWorkPhone());
@@ -137,9 +137,9 @@ public class ContactHelper  extends HelperBase{
             String firstname = cells.get(2).getText();
             String allPhones = cells.get(5).getText();
             String allEmails = cells.get(4).getText();
-
+            String address = cells.get(3).getText();
             ContactData contact = new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
-                    .withAllPhones(allPhones).withAllEmails(allEmails);
+                    .withAllPhones(allPhones).withAllEmails(allEmails).withAddress(address);
             contactCache.add(contact);
         }
         return new Contacts(contactCache);
@@ -156,10 +156,10 @@ public class ContactHelper  extends HelperBase{
         String firstEmail = wd.findElement(By.name("email")).getAttribute("value");
         String secondEmail = wd.findElement(By.name("email2")).getAttribute("value");
         String thirdEmail = wd.findElement(By.name("email3")).getAttribute("value");
-
+        String address = wd.findElement(By.name("address")).getAttribute("value");
 
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
-                .withFirstHomePhone(homeFirst).withMobilePhone(mobile).withWorkPhone(work).withSecondHomePhone(homeSecond).withFirstEmail(firstEmail).withSecondEmail(secondEmail).withThirdEmail(thirdEmail);
+                .withFirstHomePhone(homeFirst).withMobilePhone(mobile).withWorkPhone(work).withSecondHomePhone(homeSecond).withFirstEmail(firstEmail).withSecondEmail(secondEmail).withThirdEmail(thirdEmail).withAddress(address);
     }
 }
