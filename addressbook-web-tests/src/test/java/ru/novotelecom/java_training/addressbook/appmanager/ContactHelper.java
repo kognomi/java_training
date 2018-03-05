@@ -55,8 +55,22 @@ public class ContactHelper  extends HelperBase{
 
     public void initContactModificationById(int id) {
         wd.findElement(By.cssSelector("a[href='edit.php?id="+id+"']")).click();
-
     }
+
+
+    private void initContactModificationByIdTraining59(int id) {
+        // с помощью xpath зная только чекбокс
+        /*WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id))); // '%s' - переменная, их может быть сколько угодно
+        WebElement row = checkbox.findElement(By.xpath("./../.."));
+        List<WebElement> cells = row.findElements(By.tagName("td"));
+        cells.get(7).findElement(By.tagName("a")).click(); // тут 7 т.к в списке нумерация с 0
+        */
+
+//    wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a", id))).click(); // тут 8 т.к. в xpath нумерация с 1
+//    wd.findElement(By.xpath(String.format("//tr[.//input[@value='%s']]/td[8]/a", id))).click(); // c подзапросами (ищем строки где есть чекбокс, а потом в строке ищем нужную ячейку)
+//    wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();// тут почти как у меня только с переменной, а не со склейкой.
+    }
+
 
     public void submitContactModification() {
         click(By.xpath("//div[@id='content']/form[1]/input[22]"));
@@ -124,5 +138,18 @@ public class ContactHelper  extends HelperBase{
             contactCache.add(contact);
         }
         return new Contacts(contactCache);
+    }
+
+    public ContactData infoFromEditForm(ContactData contact) {
+        initContactModificationById(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String homeFirst = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        String homeSecond = wd.findElement(By.name("home2")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
+                .withFirstHomePhone(homeFirst).withMobilePhone(mobile).withWorkPhone(work).withSecondHomePhone(homeSecond);
     }
 }
