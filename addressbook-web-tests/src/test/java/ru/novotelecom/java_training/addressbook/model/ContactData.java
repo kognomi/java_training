@@ -14,15 +14,26 @@ public class ContactData {
     private String thirdEmail;
     private String secondHomePhone;
     private String group;
+    private String allPhones;
 
 
     public int getId() {
         return id;
     }
 
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
     public ContactData withId(int id) {
         this.id = id;
         return this;
+
     }
 
     public ContactData withFirstname(String firstname) {

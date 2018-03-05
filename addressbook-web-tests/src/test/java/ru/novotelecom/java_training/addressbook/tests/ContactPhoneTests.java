@@ -4,6 +4,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.novotelecom.java_training.addressbook.model.ContactData;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -26,13 +29,28 @@ public class ContactPhoneTests extends TestBase {
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
-        assertThat(contact.getFirstHomePhone(),equalTo(cleaned(contactInfoFromEditForm.getFirstHomePhone())));
-        assertThat(contact.getMobilePhone(),equalTo(cleaned(contactInfoFromEditForm.getMobilePhone())));
-        assertThat(contact.getWorkPhone(),equalTo(cleaned(contactInfoFromEditForm.getWorkPhone())));
-        assertThat(contact.getSecondHomePhone(),equalTo(cleaned(contactInfoFromEditForm.getSecondHomePhone())));
+        assertThat(contact.getAllPhones(),equalTo(mergePhones(contactInfoFromEditForm)));
+
+
     }
 
-    public String cleaned (String phone) {
+    private String mergePhones(ContactData contact) {
+
+        // в былые времена до функциональщины
+        /*String result = "";
+        if (contact.getFirstHomePhone()!=null) {
+            result = result+contact.getFirstHomePhone()
+        }
+        return result;
+        */
+        return Arrays.asList(contact.getFirstHomePhone(),contact.getMobilePhone(),contact.getWorkPhone(),contact.getSecondHomePhone())
+                .stream().filter((s)->!s.equals(""))
+                .map(ContactPhoneTests::cleaned)
+                .collect(Collectors.joining("\n"));
+
+    }
+
+    public static String cleaned (String phone) {
         return phone.replaceAll("\\s","").replaceAll("[-()]","");
     }
 
