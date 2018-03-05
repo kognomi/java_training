@@ -74,24 +74,28 @@ public class ContactHelper  extends HelperBase{
     public void create(ContactData contact) {
         fillContactForm(contact,true);
         submitContactCreation();
+        contactCache= null;
         returnToHomePage();
     }
 
     public void deleteFromModificationPage(ContactData contact) {
         initContactModificationById(contact.getId());
         submitContactDeletionFromContactEditPage();
+        contactCache = null;
 
     }
 
     public void deleteFromHomePage(ContactData contact) {
         selectContactById(contact.getId());
         submitContactDeletionFromHomePage();
+        contactCache = null;
     }
 
     public void modify(ContactData contact) {
         initContactModificationById(contact.getId());
         fillContactForm(contact,false);
         submitContactModification();
+        contactCache = null;
         returnToHomePage();
     }
 
@@ -99,16 +103,22 @@ public class ContactHelper  extends HelperBase{
         return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
 
+    private Contacts contactCache = null;
+
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if (contactCache != null) {
+            return new Contacts(contactCache);
+        }
+
+        contactCache = new Contacts();
         List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
         for (WebElement element : elements) {
             int id = Integer.parseInt(element.findElement(By.tagName("td")).findElement(By.tagName("input")).getAttribute("value"));
             String firstname = element.findElement(By.xpath(".//td[3]")).getText();
             String lastname =  element.findElement(By.xpath(".//td[2]")).getText();
             ContactData contact = new ContactData().withId(id).withFirstname(firstname).withLastname(lastname);
-            contacts.add(contact);
+            contactCache.add(contact);
         }
-        return contacts;
+        return new Contacts(contactCache);
     }
 }
