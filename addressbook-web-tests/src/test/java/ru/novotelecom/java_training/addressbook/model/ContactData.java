@@ -15,14 +15,14 @@ public class ContactData {
     private String secondHomePhone;
     private String group;
     private String allPhones;
+    private String allEmails;
 
 
-    public int getId() {
-        return id;
-    }
 
-    public String getAllPhones() {
-        return allPhones;
+
+    public ContactData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+        return this;
     }
 
     public ContactData withAllPhones(String allPhones) {
@@ -171,5 +171,17 @@ public class ContactData {
 
     public String getGroup() {
         return group;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public String getAllEmails() {
+        return allEmails;
     }
 }
