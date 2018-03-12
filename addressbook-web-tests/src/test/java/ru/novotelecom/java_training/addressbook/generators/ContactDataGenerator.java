@@ -63,24 +63,24 @@ public class ContactDataGenerator {
                     withFirstHomePhone(String.format("111%s",i)).withMobilePhone(String.format("222%s",i)).
                     withWorkPhone(String.format("333%s",i)).withFirstEmail(String.format("%s11@test.tt",i)).
                     withSecondEmail(String.format("%s22@test.tt",i)).withThirdEmail(String.format("%s33@test.tt",i)).
-                    withSecondHomePhone(String.format("444%s",i)).withGroup("test1"));
+                    withSecondHomePhone(String.format("444%s",i)).withGroup("test1").withPhoto(new File("src/test/resources/grass.png")));
         }
         return contacts;
     }
 
 
-    private void saveAsJson(List<ContactData> groups, File file) throws IOException {
+    private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(groups);
+        String json = gson.toJson(contacts);
         Writer writer = new FileWriter(file);
         writer.write(json);
         writer.close();
     }
 
-    private void saveAsXml(List<ContactData> groups, File file) throws IOException {
+    private void saveAsXml(List<ContactData> contacts, File file) throws IOException {
         XStream xstream = new XStream();
         xstream.processAnnotations(ContactData.class);
-        String xml = xstream.toXML(groups);
+        String xml = xstream.toXML(contacts);
         Writer writer = new FileWriter(file);
         writer.write(xml);
         writer.close();
