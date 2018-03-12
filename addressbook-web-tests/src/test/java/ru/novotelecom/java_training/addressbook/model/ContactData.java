@@ -1,20 +1,40 @@
 package ru.novotelecom.java_training.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.File;
 
+@XStreamAlias("contact")
+
 public class ContactData {
+
+    @XStreamOmitField
     private int id = Integer.MAX_VALUE;
+    @Expose
     private String firstname;
+    @Expose
     private String midname;
+    @Expose
     private String lastname;
+    @Expose
     private String address;
+    @Expose
     private String firstHomePhone;
+    @Expose
     private String mobilePhone;
+    @Expose
     private String workPhone;
+    @Expose
     private String firstEmail;
+    @Expose
     private String secondEmail;
+    @Expose
     private String thirdEmail;
+    @Expose
     private String secondHomePhone;
+    @Expose
     private String group;
     private String allPhones;
     private String allEmails;
