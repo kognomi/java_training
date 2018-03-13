@@ -13,6 +13,7 @@ addressbook-web-tests/src/test/resources/contacts.xml
 addressbook-web-tests/src/test/resources/groups.csv
 addressbook-web-tests/src/test/resources/groups.json
 addressbook-web-tests/src/test/resources/groups.xml
+*.log
 # Ignore Gradle GUI config
 gradle-app.setting
 
