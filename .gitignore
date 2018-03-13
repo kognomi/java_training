@@ -6,8 +6,13 @@
 sandbox/build/
 sandbox/out/production/classes/
 sandbox/out/test/classes/
-addressbook-web-tests/out/test/classes/
-addressbook-web-tests/out/main/classes/
+addressbook-web-tests/out/
+addressbook-web-tests/build/
+addressbook-web-tests/src/test/resources/contacts.json
+addressbook-web-tests/src/test/resources/contacts.xml
+addressbook-web-tests/src/test/resources/groups.csv
+addressbook-web-tests/src/test/resources/groups.json
+addressbook-web-tests/src/test/resources/groups.xml
 # Ignore Gradle GUI config
 gradle-app.setting
 
