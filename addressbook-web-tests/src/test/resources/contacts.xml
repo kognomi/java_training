@@ -1,0 +1,47 @@
+<list>
+  <contact>
+    <firstname>firstname 0</firstname>
+    <midname>midname 0</midname>
+    <lastname>lastname 0</lastname>
+    <address>address 0</address>
+    <firstHomePhone>1110</firstHomePhone>
+    <mobilePhone>2220</mobilePhone>
+    <workPhone>3330</workPhone>
+    <firstEmail>011@test.tt</firstEmail>
+    <secondEmail>022@test.tt</secondEmail>
+    <thirdEmail>033@test.tt</thirdEmail>
+    <secondHomePhone>4440</secondHomePhone>
+    <group>test1</group>
+    <photo>src/test/resources/grass.png</photo>
+  </contact>
+  <contact>
+    <firstname>firstname 1</firstname>
+    <midname>midname 1</midname>
+    <lastname>lastname 1</lastname>
+    <address>address 1</address>
+    <firstHomePhone>1111</firstHomePhone>
+    <mobilePhone>2221</mobilePhone>
+    <workPhone>3331</workPhone>
+    <firstEmail>111@test.tt</firstEmail>
+    <secondEmail>122@test.tt</secondEmail>
+    <thirdEmail>133@test.tt</thirdEmail>
+    <secondHomePhone>4441</secondHomePhone>
+    <group>test1</group>
+    <photo>src/test/resources/grass.png</photo>
+  </contact>
+  <contact>
+    <firstname>firstname 2</firstname>
+    <midname>midname 2</midname>
+    <lastname>lastname 2</lastname>
+    <address>address 2</address>
+    <firstHomePhone>1112</firstHomePhone>
+    <mobilePhone>2222</mobilePhone>
+    <workPhone>3332</workPhone>
+    <firstEmail>211@test.tt</firstEmail>
+    <secondEmail>222@test.tt</secondEmail>
+    <thirdEmail>233@test.tt</thirdEmail>
+    <secondHomePhone>4442</secondHomePhone>
+    <group>test1</group>
+    <photo>src/test/resources/grass.png</photo>
+  </contact>
+</list>
