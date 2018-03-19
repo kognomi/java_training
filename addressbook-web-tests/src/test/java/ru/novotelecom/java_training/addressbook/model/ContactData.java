@@ -3,47 +3,90 @@ package ru.novotelecom.java_training.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
+@Entity
+@Table(name="addressbook")
 @XStreamAlias("contact")
 
 public class ContactData {
 
+    @Id
+    @Column(name = "id")
     @XStreamOmitField
     private int id = Integer.MAX_VALUE;
+
+    @Column(name = "firstname")
     @Expose
     private String firstname;
+
+     @Column(name = "middlename")
     @Expose
     private String midname;
+
+    @Column(name = "lastname")
     @Expose
     private String lastname;
+
+    @Column(name = "address")
+    @Type(type="text")
     @Expose
     private String address;
+
+    @Column(name = "home")
+    @Type(type="text")
     @Expose
     private String firstHomePhone;
+
+    @Column(name = "mobile")
+    @Type(type="text")
     @Expose
     private String mobilePhone;
+
+    @Column(name = "work")
+    @Type(type="text")
     @Expose
     private String workPhone;
+
+    @Column(name = "email")
+    @Type(type="text")
     @Expose
     private String firstEmail;
+
+    @Column(name = "email2")
+    @Type(type="text")
     @Expose
     private String secondEmail;
+
+    @Column(name = "email3")
+    @Type(type="text")
     @Expose
     private String thirdEmail;
+
+    @Column(name = "phone2")
+    @Type(type="text")
     @Expose
     private String secondHomePhone;
+
+    @Transient
     @Expose
     private String group;
+    @Transient
     private String allPhones;
+    @Transient
     private String allEmails;
-    private File photo;
+
+    @Column(name = "photo")
+    @Type(type="text")
+    private String photo;
 
 
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
@@ -213,6 +256,6 @@ public class ContactData {
     }
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 }
