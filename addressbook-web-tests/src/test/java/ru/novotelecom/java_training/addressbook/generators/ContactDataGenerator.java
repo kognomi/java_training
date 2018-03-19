@@ -63,7 +63,9 @@ public class ContactDataGenerator {
                     withFirstHomePhone(String.format("111%s",i)).withMobilePhone(String.format("222%s",i)).
                     withWorkPhone(String.format("333%s",i)).withFirstEmail(String.format("%s11@test.tt",i)).
                     withSecondEmail(String.format("%s22@test.tt",i)).withThirdEmail(String.format("%s33@test.tt",i)).
-                    withSecondHomePhone(String.format("444%s",i)).withGroup("test1").withPhoto(new File("src/test/resources/grass.png")));
+                    withSecondHomePhone(String.format("444%s",i))
+                    //.withGroup("test1")
+                    .withPhoto(new File("src/test/resources/grass.png")));
         }
         return contacts;
     }

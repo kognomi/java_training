@@ -7,6 +7,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.novotelecom.java_training.addressbook.model.ContactData;
 import ru.novotelecom.java_training.addressbook.model.Contacts;
+import ru.novotelecom.java_training.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -62,7 +63,7 @@ public class ContactCreationTests extends TestBase {
 
 
     @Test(dataProvider = "validContactsFromXml")
-    public void testContactCreationSet(ContactData contact) {
+    public void testContactCreationFromFile(ContactData contact) {
         app.goTo().homePage();
         Contacts before = app.db().contacts();
         app.goTo().contactCreationPage();
@@ -74,6 +75,31 @@ public class ContactCreationTests extends TestBase {
         verifyContactListWithUI();
     }
 
+
+    @Test
+    public void testContactCreationFixGroups() {
+        Groups groups = app.db().groups();
+        File photo = new File("src/test/resources/grass.png");
+
+        app.goTo().homePage();
+        ContactData contact = new ContactData().withFirstname("1Firstname").withMidname("1Midname")
+                .withLastname("1Lastname").withAddress("1Addr").withFirstHomePhone("11111")
+                .withMobilePhone("12222").withWorkPhone("13333").withFirstEmail("1email1@aaa.aa")
+                .withSecondEmail("1email2@bbb.bb").withThirdEmail("1email3@ccc.cc").withSecondHomePhone("15555")
+                .withPhoto(photo).inGroup(groups.iterator().next());
+
+        Contacts before = app.db().contacts();
+        app.goTo().contactCreationPage();
+        app.contact().fillContactForm(contact,true);
+        app.contact().submitContactCreation();
+        app.contact().returnToHomePage();
+
+        assertThat(app.contact().count(),equalTo(before.size()+1));
+        Contacts after = app.db().contacts();
+        assertThat(after, equalTo(
+                before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+        verifyContactListWithUI();
+    }
 
 
 }
