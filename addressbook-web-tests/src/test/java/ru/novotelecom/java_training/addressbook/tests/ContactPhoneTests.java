@@ -34,15 +34,7 @@ public class ContactPhoneTests extends TestBase {
 
     }
 
-    private String mergePhones(ContactData contact) {
-
-        // в былые времена до функциональщины
-        /*String result = "";
-        if (contact.getFirstHomePhone()!=null) {
-            result = result+contact.getFirstHomePhone()
-        }
-        return result;
-        */
+    public String mergePhones(ContactData contact) {
         return Arrays.asList(contact.getFirstHomePhone(),contact.getMobilePhone(),contact.getWorkPhone(),contact.getSecondHomePhone())
                 .stream().filter((s)->!s.equals(""))
                 .map(ContactPhoneTests::cleaned)
