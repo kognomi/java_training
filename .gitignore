@@ -8,6 +8,8 @@ sandbox/out/production/classes/
 sandbox/out/test/classes/
 addressbook-web-tests/out/
 addressbook-web-tests/build/
+mantis-tests/out/
+mantis-tests/build/
 addressbook-web-tests/src/test/resources/contacts.json
 
 *.log
