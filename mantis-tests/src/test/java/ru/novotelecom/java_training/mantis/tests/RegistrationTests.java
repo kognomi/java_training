@@ -23,13 +23,13 @@ public class RegistrationTests extends TestBase {
     @Test
     public void testRegistration() throws IOException, MessagingException {
         long now = System.currentTimeMillis();
-        String email = String.format("user%s@localhost.localdomain",now);
+        String email = String.format("user%s@localhost",now);
         String login = String.format("user%s",now);
         String password = "password";
         app.registration().start(login, email);
-        List<MailMessage> mailMessages = app.mail().waitForMail(2,10000);
+        List<MailMessage> mailMessages = app.mail().waitForMail(2,50000);
         String  confirmationLink = findConfirmationLink(mailMessages, email);
-        app.registration().finish(confirmationLink, password);
+        app.registration().finish(confirmationLink, password,"FIO");
         assertTrue(app.newSession().login(login, password));
     }
 
