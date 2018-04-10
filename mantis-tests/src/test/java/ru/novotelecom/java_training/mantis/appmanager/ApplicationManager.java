@@ -23,6 +23,8 @@ public class ApplicationManager {
     private FtpHelper ftp;
     private MailHelper mail;
     private JamesHelper james;
+    private DbHelper db;
+    private ResetPasswordHelper reset;
 
 
     public ApplicationManager(String browser)  {
@@ -84,6 +86,21 @@ public class ApplicationManager {
         }
         return james;
     }
+
+    public DbHelper db() {
+        if (db==null) {
+            db = new DbHelper(this);
+        }
+        return db;
+    }
+    public ResetPasswordHelper reset() {
+        if (reset==null) {
+            reset = new ResetPasswordHelper(this);
+        }
+        return reset;
+    }
+
+
 
     public WebDriver getDriver() {
 
