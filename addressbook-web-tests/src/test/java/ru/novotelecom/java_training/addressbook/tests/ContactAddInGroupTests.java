@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import ru.novotelecom.java_training.addressbook.model.ContactData;
 import ru.novotelecom.java_training.addressbook.model.Contacts;
 import ru.novotelecom.java_training.addressbook.model.GroupData;
+import ru.novotelecom.java_training.addressbook.model.Groups;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -35,12 +36,42 @@ public class ContactAddInGroupTests extends TestBase {
   @Test
   public void testContactAddInGroup() {
     Contacts before = app.db().contacts();
-    ContactData addContact = before.iterator().next();
-    app.contact().addInGroup(addContact);
-
+    ContactData contact = before.iterator().next();
+    Groups beforeGroups = contact.getGroups();
+    GroupData group = findGroup(contact);
+    app.goTo().homePage();
+    app.contact().addInGroup(contact, group);
     Contacts after = app.db().contacts();
-    assertThat(app.contact().count(), equalTo(before.size()));
-    assertThat(after, equalTo(before));
-    verifyContactListWithUI();
+    ContactData editContact = after.iterator().next();
+    Groups afterGroups = editContact.getGroups();
+    assertThat(afterGroups, equalTo(beforeGroups.withAdded(group)));
+  }
+
+  private GroupData findGroup(ContactData contact) {
+    int groupsCount = app.db().groups().size();
+    int contactGroupsCount = contact.getGroups().size();
+    if (groupsCount == contactGroupsCount) {
+      app.goTo().groupPage();
+      GroupData group = new GroupData().withName("test6");
+      app.group().create(group);
+    }
+    Groups groupsExist = app.db().groups();
+    for (GroupData group : groupsExist) {
+      if (checkContactNotInGroup(contact, group)) {
+        return group;
+      }
+    }
+    return null;
+
+  }
+
+  private boolean checkContactNotInGroup(ContactData contact, GroupData group) {
+        Groups contactGroups = contact.getGroups();
+      for(GroupData groupCheck : contactGroups){
+         if (group.getId() == groupCheck.getId()){
+            return false;
+         }
+      }
+      return true;
   }
 }

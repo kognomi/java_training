@@ -34,22 +34,27 @@ public class ContactDeleteFromGroupTests extends TestBase {
 
   @Test
   public void testContactDeleteFromGroup() {
-    Contacts before = app.db().contacts();
-    ContactData deleteContact = before.iterator().next();
-    Groups group = app.db().groups();
-    GroupData group1 = group.iterator().next();
-
-    if (deleteContact.getGroups().isEmpty()) {
-      ContactData addContact = before.iterator().next();
-      app.contact().addInGroup(addContact);
-    }
-
-    app.contact().deleteFromGroup(deleteContact, group1);
-
-    Contacts after = app.db().contacts();
-    assertThat(app.contact().count(), equalTo(before.size()-1));
-    assertThat(after, equalTo(before));
-    verifyContactListWithUI();
-  }
+      Contacts before = app.db().contacts();
+      ContactData contact = before.iterator().next();
+      Groups beforeGroups = contact.getGroups();
+      GroupData group = findGroup(contact);
+      app.goTo().homePage();
+      app.contact().deleteFromGroup(contact, group);
+      Contacts after = app.db().contacts();
+      ContactData editContact = after.iterator().next();
+      Groups afterGroups = editContact.getGroups();
+      assertThat(afterGroups, equalTo(beforeGroups.withAdded(group)));
 
 }
+
+  private GroupData findGroup(ContactData contact) {
+    int contactGroupsCount = contact.getGroups().size();
+      Groups groupsExist = app.db().groups();
+      if (contactGroupsCount == 0) {
+         GroupData group = groupsExist.iterator().next();
+         app.goTo().homePage();
+         app.contact().addInGroup(contact, group);
+      }
+      return contact.getGroups().iterator().next();
+   }
+  }

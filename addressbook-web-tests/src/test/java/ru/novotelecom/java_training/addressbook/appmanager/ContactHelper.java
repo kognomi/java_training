@@ -175,8 +175,14 @@ public class ContactHelper  extends HelperBase{
             wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
           }
 
+    private void selectGroupforAdding(String group) {
+
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group);
+    }
+
     public void submitContactAddInGroup() {
            click(By.cssSelector("input[name='add']"));
+
          }
     public void submitContactDeleteFromGroup() {
         click(By.cssSelector("input[name='remove']"));
@@ -188,12 +194,12 @@ public class ContactHelper  extends HelperBase{
     }
 
 
-    public void addInGroup(ContactData contact) {
+    public void addInGroup(ContactData contact,GroupData group) {
         selectContactById(contact.getId());
+        selectGroupforAdding(group.getName());
         submitContactAddInGroup();
         contactCache = null;
         goToHomePage();
-
          }
 
   public void deleteFromGroup(ContactData contact, GroupData group) {
