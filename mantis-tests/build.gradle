@@ -19,6 +19,8 @@ dependencies {
     compile 'biz.futureware.mantis:mantis-axis-soap-client:1.2.19'
 
 
+
+
 }
 
 test {
