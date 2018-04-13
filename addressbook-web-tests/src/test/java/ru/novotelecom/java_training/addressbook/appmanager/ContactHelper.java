@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.novotelecom.java_training.addressbook.model.ContactData;
 import ru.novotelecom.java_training.addressbook.model.Contacts;
+import ru.novotelecom.java_training.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -35,13 +36,13 @@ public class ContactHelper  extends HelperBase{
         type(By.name("email2"),contactData.getSecondEmail());
         type(By.name("email3"),contactData.getThirdEmail());
         type(By.name("phone2"),contactData.getSecondHomePhone());
-        attach(By.name("photo"),contactData.getPhoto());
+//        attach(By.name("photo"),contactData.getPhoto());
 
         if (creation) {
-            if (contactData.getGroups().size()>0) {
+ /*           if (contactData.getGroups().size()>0) {
                 Assert.assertTrue(contactData.getGroups().size()==1);
                 new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
-            }
+            }*/
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
@@ -51,6 +52,9 @@ public class ContactHelper  extends HelperBase{
 
     public void returnToHomePage() {
         click(By.linkText("home page"));
+    }
+    public void goToHomePage() {
+        click(By.linkText("home"));
     }
 
     public void selectContactById(int id) {
@@ -165,5 +169,39 @@ public class ContactHelper  extends HelperBase{
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
                 .withFirstHomePhone(homeFirst).withMobilePhone(mobile).withWorkPhone(work).withSecondHomePhone(homeSecond).withFirstEmail(firstEmail).withSecondEmail(secondEmail).withThirdEmail(thirdEmail).withAddress(address);
+    }
+
+    public void selectContactByIdForDelete(int id) {
+            wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
+          }
+
+    public void submitContactAddInGroup() {
+           click(By.cssSelector("input[name='add']"));
+         }
+    public void submitContactDeleteFromGroup() {
+        click(By.cssSelector("input[name='remove']"));
+
+    }
+
+    public void goToContactsFromGroupsPage(int group) {
+        wd.findElement(By.cssSelector(String.format("a[href='./index.php?group=%s']", group))).click();
+    }
+
+
+    public void addInGroup(ContactData contact) {
+        selectContactById(contact.getId());
+        submitContactAddInGroup();
+        contactCache = null;
+        goToHomePage();
+
+         }
+
+  public void deleteFromGroup(ContactData contact, GroupData group) {
+    selectContactByIdForDelete(contact.getId());
+    goToContactsFromGroupsPage(group.getId());
+    selectContactById(contact.getId());
+    submitContactDeleteFromGroup();
+   contactCache = null;
+   goToHomePage();
     }
 }
