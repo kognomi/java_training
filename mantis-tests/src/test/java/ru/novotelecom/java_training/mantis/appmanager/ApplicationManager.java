@@ -25,6 +25,7 @@ public class ApplicationManager {
     private JamesHelper james;
     private DbHelper db;
     private ResetPasswordHelper reset;
+    private SoapHelper soap;
 
 
     public ApplicationManager(String browser)  {
@@ -98,6 +99,13 @@ public class ApplicationManager {
             reset = new ResetPasswordHelper(this);
         }
         return reset;
+    }
+
+    public SoapHelper soap() {
+        if (soap==null) {
+            soap = new SoapHelper(this);
+        }
+        return soap;
     }
 
 
